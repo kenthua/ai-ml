@@ -14,21 +14,21 @@ deployment_config:
     resources:
       accelerator_type_l4: 0.01
 engine_config:
-  model_id: meta-llama/Llama-2-7b-chat-hf
-  hf_model_id: meta-llama/Llama-2-7b-chat-hf
+  model_id: tiiuae/falcon-7b-instruct
+  hf_model_id: tiiuae/falcon-7b-instruct
   type: VLLMEngine
   engine_kwargs:
-    trust_remote_code: true
-    max_num_batched_tokens: 4096
+    trust_remote_code: false
+    max_num_batched_tokens: 2048
     max_num_seqs: 64
     gpu_memory_utilization: 0.9
-  max_total_tokens: 4096
+  max_total_tokens: 2048
   generation:
     prompt_format:
-      system: "<<SYS>>\n{instruction}\n<</SYS>>\n\n"
+      system: "{instruction}\n\n"
       assistant: " {instruction} </s><s>"
       trailing_assistant: ""
-      user: "[INST] {system}{instruction} [/INST]"
+      user: "[INST] {system}{instruction}"
       system_in_user: true
       default_system_message: ""
     stopping_sequences: ["<unk>"]

@@ -1,0 +1,11 @@
+applications:
+- name: llama-2
+  route_prefix: /
+  import_path: model_nf4_mg:chat_app_nf4_mg
+  runtime_env:
+    working_dir: "https://github.com/kenthua/ai-ml/archive/refs/tags/v0.0.5.zip"
+    env_vars:
+      MODEL_ID: "meta-llama/Llama-2-70b-chat-hf"
+  deployments:
+  - name: Chat
+    num_replicas: 1
