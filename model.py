@@ -1,10 +1,10 @@
-import ray
-from ray import serve
-from fastapi import FastAPI
 import os
-from transformers import AutoTokenizer
+import ray
 import transformers
 import torch
+from ray import serve
+from fastapi import FastAPI
+from transformers import AutoTokenizer
 
 # validator error - pip install pydantic==1.10.9
 
