@@ -1,0 +1,8 @@
+applications:
+- name: llama-2
+  route_prefix: /
+  import_path: model_nf4_mg:chat_app_nf4_mg
+  runtime_env: {}
+  deployments:
+  - name: chat
+    num_replicas: 1
