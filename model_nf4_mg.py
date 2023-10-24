@@ -10,7 +10,7 @@ from transformers import AutoTokenizer, BitsAndBytesConfig, AutoModelForCausalLM
 
 app = FastAPI()
 
-model_id = "meta-llama/Llama-2-70b-chat-hf"
+model_id = os.environ["MODEL_ID"]
 
 @serve.deployment(num_replicas=1, ray_actor_options={"num_cpus": 20, "num_gpus": 2})
 
@@ -29,13 +29,13 @@ class Chat:
             llm_int8_enable_fp32_cpu_offload=True
         )
            
-        # Load model
+        # Load model config
         self.tokenizer = AutoTokenizer.from_pretrained(
             model_id, 
             token=os.environ["HUGGING_FACE_HUB_TOKEN"]
         )
 
-        # prepare teh model wiht quantization and device map for multi-gpu
+        # load the model with quantization
         model_nf4 = AutoModelForCausalLM.from_pretrained(
             model_id,
             quantization_config=nf4_config,
@@ -43,7 +43,7 @@ class Chat:
             token=os.environ["HUGGING_FACE_HUB_TOKEN"]
         )
 
-        # is token needed for transfomers.pipeline
+        # prepare the pipeline for inferencing
         self.pipeline = transformers.pipeline(
             "text-generation",
             model=model_nf4,

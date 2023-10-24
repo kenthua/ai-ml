@@ -73,4 +73,4 @@ class Chat:
 
         return val 
 
-chat_app_nf4_mg_7 = Chat.bind()
+chat_app_nf4_mg = Chat.bind()
